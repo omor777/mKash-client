@@ -1,27 +1,52 @@
 import { Sidebar } from "flowbite-react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { HiTable, HiArrowSmRight } from "react-icons/hi";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "../../features/auth/authSlice";
+import { persistor } from "../../app/store";
+import { MdOutlineLogout } from "react-icons/md";
+
 const SidebarSec = () => {
+  const { isUserExist } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    persistor.purge();
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
   return (
     <Sidebar className="h-screen         w-72">
       <Sidebar.Items className="">
         <Sidebar.ItemGroup>
-          {/* <Sidebar.Item href="#">Dashboard</Sidebar.Item>
-          <Sidebar.Collapse label="E-commerce">
-            <Sidebar.Item href="#">Products</Sidebar.Item>
-            <Sidebar.Item href="#">Sales</Sidebar.Item>
-            <Sidebar.Item href="#">Refunds</Sidebar.Item>
-            <Sidebar.Item href="#">Shipping</Sidebar.Item>
-          </Sidebar.Collapse>
-          <Sidebar.Item href="#">Inbox</Sidebar.Item>
-          <Sidebar.Item href="#">Users</Sidebar.Item>
-          <Sidebar.Item href="#">Products</Sidebar.Item> */}
-          <Sidebar.Item as="p" icon={HiArrowSmRight}>
-            <NavLink to={"/"}>Sing In</NavLink>
-          </Sidebar.Item>
-          <Sidebar.Item as="p" icon={HiTable}>
-            <NavLink to={"/signUP"}>Sign Up</NavLink>
-          </Sidebar.Item>
+          {isUserExist ? (
+            <>
+              <Sidebar.Item href="#">Dashboard</Sidebar.Item>
+              <Sidebar.Item href="#">Inbox</Sidebar.Item>
+              <Sidebar.Item href="#">Users</Sidebar.Item>
+              <Sidebar.Item href="#">Products</Sidebar.Item>
+              <Sidebar.Item
+                onClick={handleLogout}
+                icon={MdOutlineLogout}
+                as="p"
+                className="cursor-pointer"
+              >
+                Logout
+              </Sidebar.Item>
+            </>
+          ) : (
+            <>
+              <Sidebar.Item as={NavLink} to="/" icon={HiArrowSmRight}>
+                Sing In
+              </Sidebar.Item>
+              <Sidebar.Item as={NavLink} to="/signUp" icon={HiTable}>
+                Sing Up
+              </Sidebar.Item>
+            </>
+          )}
         </Sidebar.ItemGroup>
       </Sidebar.Items>
     </Sidebar>

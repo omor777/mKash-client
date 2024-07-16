@@ -1,6 +1,5 @@
 import { Button, Card, Label, Select, TextInput } from "flowbite-react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import useAxiosCommon from "../../hooks/useAxiosCommon";
 import "react-toastify/dist/ReactToastify.css";
 
