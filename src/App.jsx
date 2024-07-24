@@ -3,11 +3,11 @@ import SidebarSec from "./components/shared/SidebarSec";
 
 const App = () => {
   return (
-    <div className="grid grid-cols-[auto_1fr]">
+    <div>
       <div>
         <SidebarSec />
       </div>
-      <div className="px-20">
+      <div className="md:ml-72 px-8 md:px-12 lg:px20">
         <Outlet />
       </div>
     </div>

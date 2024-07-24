@@ -3,24 +3,35 @@ import useAxiosCommon from "../../hooks/useAxiosCommon";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../features/auth/authSlice";
 
 const Login = () => {
+  // const { user } = useSelector((state) => state.auth);
   const axiosCommon = useAxiosCommon();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (userInfo) => {
-    // console.log(userInfo);
     try {
       const { data } = await axiosCommon.post("/auth/login", userInfo);
-      console.log(data);
+
+      let from;
+      if (data?.user?.role === "ADMIN") {
+        from = "/allUsers";
+      }
+      if (data?.user?.role === "USER") {
+        from = "/home";
+      }
+      // console.log(data);
+
       if (data.success) {
         localStorage.setItem("token", data.token);
         dispatch(loginUser(data.user));
-        navigate("/home");
+
+        navigate(from);
+
         toast.success("Login successful");
       }
     } catch (e) {
