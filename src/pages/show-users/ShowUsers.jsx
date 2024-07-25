@@ -1,20 +1,33 @@
-import { Badge, Button, Pagination, Spinner, Table } from "flowbite-react";
+import {
+  Badge,
+  Button,
+  Label,
+  Pagination,
+  Select,
+  Spinner,
+  Table,
+} from "flowbite-react";
 import {
   useGetAllUsersQuery,
   usePatchUserMutation,
 } from "../../services/usersApi";
 import { toast } from "react-toastify";
-import { useState } from "react";
+import { useReducer } from "react";
+import { showUsersReducer } from "./showUsersReducer";
+
+const initialState = {
+  page: 1,
+  limit: 10,
+  search: "",
+};
 
 const ShowUsers = () => {
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
-  const [search, setSearch] = useState("");
+  const [state, dispatch] = useReducer(showUsersReducer, initialState);
 
   const { data, isLoading } = useGetAllUsersQuery({
-    page,
-    limit,
-    search,
+    page: state.page,
+    limit: state.limit,
+    search: state.search,
   });
 
   const [patchUser, { isLoading: isUpdating }] = usePatchUserMutation();
@@ -32,8 +45,18 @@ const ShowUsers = () => {
   };
 
   const handlePagination = (page) => {
-    console.log(page);
-    setPage(page);
+    dispatch({
+      type: "pagination_control",
+      value: page,
+    });
+  };
+
+  const handlePaginationLimit = (e) => {
+    const limit = parseInt(e.target.value);
+    dispatch({
+      type: "change_pagination_limit",
+      value: limit,
+    });
   };
 
   if (isLoading) {
@@ -95,13 +118,32 @@ const ShowUsers = () => {
           </Table.Body>
         </Table>
       </div>
-      <div className="flex overflow-x-auto justify-center mt-8">
-        <Pagination
-          currentPage={page}
-          totalPages={data.totalPages || 1}
-          onPageChange={handlePagination}
-          showIcons
-        />
+      <div className="mt-8 flex items-center justify-between">
+        <div className="flex overflow-x-auto justify-center ">
+          <Pagination
+            currentPage={state.page}
+            totalPages={data.totalPages || 1}
+            onPageChange={handlePagination}
+            showIcons
+          />
+        </div>
+
+        <div className="flex items-center gap-3">
+          <div className="mb-2 block">
+            <Label className="text-lg" htmlFor="limit" value="Limit" />
+          </div>
+          <Select
+            onChange={handlePaginationLimit}
+            value={state.limit}
+            id="limit"
+            required
+          >
+            <option value={"5"}>5</option>
+            <option value={"10"}>10</option>
+            <option value={"15"}>15</option>
+            <option value={"20"}>20</option>
+          </Select>
+        </div>
       </div>
     </div>
   );
