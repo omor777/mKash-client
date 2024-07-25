@@ -9,15 +9,24 @@ import {
   REGISTER,
   REHYDRATE,
 } from "redux-persist";
-import rootReducer from "../reducer";
-import { configureStore } from "@reduxjs/toolkit";
+// import rootReducer from "../reducer";
+import authReducer from "../features/auth/authSlice";
+import toggleReducer from "../features/toggle/toggleSlice";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { api } from "../services/api";
 
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
+  blacklist: [api.reducerPath],
 };
+
+const rootReducer = combineReducers({
+  auth: authReducer,
+  toggle: toggleReducer,
+  [api.reducerPath]: api.reducer,
+});
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

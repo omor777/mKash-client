@@ -1,21 +1,36 @@
 import { Badge, Button, Spinner, Table } from "flowbite-react";
-import { useGetAllUsersQuery } from "../../services/usersApi";
-import { useSelector } from "react-redux";
+import {
+  useGetAllUsersQuery,
+  usePatchUserMutation,
+} from "../../services/usersApi";
+import { toast } from "react-toastify";
 
 const ShowUsers = () => {
   const { data: users, isLoading } = useGetAllUsersQuery();
-  const { user } = useSelector((state) => state.auth);
+  const [patchUser, { isLoading: isUpdating }] = usePatchUserMutation();
+
+  const handleApproved = async (id) => {
+    try {
+      const data = await patchUser({ id }).unwrap();
+      console.log(data);
+      if (data.success) {
+        toast.success("Account has been approved");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   if (isLoading) {
     return (
       <div className="h-screen flex items-center justify-center">
-        <Spinner aria-label="Extra large spinner example" size="xl" />;
+        <Spinner aria-label="Extra large spinner example" size="xl" />
       </div>
     );
   }
 
   return (
-    <div className="overflow-x-auto shadow-md mt-20">
+    <div className="overflow-x-auto shadow-md my-20">
       <Table hoverable>
         <Table.Head>
           <Table.HeadCell>Name</Table.HeadCell>
@@ -42,14 +57,22 @@ const ShowUsers = () => {
               <Table.Cell>
                 <Badge
                   className="w-24 justify-center"
-                  color={"warning"}
+                  color={
+                    user.account_status === "PENDING" ? "warning" : "success"
+                  }
                   size={""}
                 >
                   {user.account_status}
                 </Badge>
               </Table.Cell>
               <Table.Cell>
-                <Button size="xs">Approved</Button>
+                <Button
+                  disabled={isUpdating || user.account_status === "APPROVED"}
+                  onClick={() => handleApproved(user._id)}
+                  size="xs"
+                >
+                  Approved
+                </Button>
               </Table.Cell>
             </Table.Row>
           ))}

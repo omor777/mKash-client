@@ -6,7 +6,7 @@ const NavbarSec = () => {
   const { isOpen } = useSelector((state) => state.toggle);
   const dispatch = useDispatch();
   return (
-    <Navbar fluid rounded className="shadow-md px-8">
+    <Navbar fluid className="shadow-md px-8">
       <Navbar.Brand>
         <span className=" text-center whitespace-nowrap text-xl font-semibold dark:text-white">
           mKash

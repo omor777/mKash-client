@@ -5,7 +5,14 @@ const axiosSecure = axios.create({
 });
 
 const useAxiosSecure = () => {
-  return axiosSecure;
+  axiosSecure.interceptors.request.use(
+    (config) => {
+      return config;
+    },
+    (e) => {
+      return Promise.reject(e);
+    }
+  );
 };
 
 export default useAxiosSecure;
