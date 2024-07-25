@@ -3,17 +3,22 @@ import { api } from "./api";
 const usersApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getAllUsers: builder.query({
-      query: () => "/users",
-      providesTags: (result) => {
-        return result
+      query: ({ page = 1, limit = 10, search = "" }) => {
+        return {
+          url: "/users",
+          params: { page, limit, search },
+        };
+      },
+      providesTags: (result) =>
+        result
           ? [
-              ...result.map(({ id }) => {
-                return { type: "Users", id };
-              }),
+              ...result.users.map(({ _id }) => ({
+                type: "Users",
+                id: _id,
+              })),
               { type: "Users", id: "LIST" },
             ]
-          : [{ type: "Users", id: "LIST" }];
-      },
+          : [{ type: "Users", id: "LIST" }],
     }),
     patchUser: builder.mutation({
       query: ({ id }) => {

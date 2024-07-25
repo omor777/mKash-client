@@ -6,7 +6,11 @@ import { logoutUser } from "../../features/auth/authSlice";
 import { persistor } from "../../app/store";
 import { MdOutlineLogout } from "react-icons/md";
 import { FaBars, FaUsers } from "react-icons/fa";
+import { TiHome } from "react-icons/ti";
 import { toggleSidebar } from "../../features/toggle/toggleSlice";
+import { GiTakeMyMoney, GiWallet, GiPayMoney } from "react-icons/gi";
+import { FaSackDollar } from "react-icons/fa6";
+
 const SidebarSec = () => {
   const { user, isUserExist } = useSelector((state) => state.auth);
   const { isOpen } = useSelector((state) => state.toggle);
@@ -54,9 +58,25 @@ const SidebarSec = () => {
                     </Sidebar.Item>
                   </>
                 )}
-                <Sidebar.Item href="#">Inbox</Sidebar.Item>
-                <Sidebar.Item href="#">Users</Sidebar.Item>
-                <Sidebar.Item href="#">Products</Sidebar.Item>
+                {user.role === "USER" && (
+                  <>
+                    <Sidebar.Item as={NavLink} to="/home" icon={TiHome}>
+                      Home
+                    </Sidebar.Item>
+                    <Sidebar.Item as={NavLink} icon={FaSackDollar}>
+                      Total Balance
+                    </Sidebar.Item>
+                    <Sidebar.Item as={NavLink} icon={GiPayMoney}>
+                      Send Money
+                    </Sidebar.Item>
+                    <Sidebar.Item as={NavLink} icon={GiTakeMyMoney}>
+                      Cash Out
+                    </Sidebar.Item>
+                    <Sidebar.Item as={NavLink} icon={GiWallet}>
+                      Add Money
+                    </Sidebar.Item>
+                  </>
+                )}
                 <Sidebar.Item
                   onClick={handleLogout}
                   icon={MdOutlineLogout}
