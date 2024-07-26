@@ -4,6 +4,7 @@ import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 import Home from "../pages/home/Home";
 import ShowUsers from "../pages/show-users/ShowUsers";
+import TotalBalance from "../pages/total-balance/TotalBalance";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ export const router = createBrowserRouter([
       {
         path: "/allUsers",
         element: <ShowUsers />,
+      },
+      {
+        path: "/balance",
+        element: <TotalBalance />,
       },
     ],
   },

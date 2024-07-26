@@ -3,7 +3,7 @@ import useAxiosCommon from "../../hooks/useAxiosCommon";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loginUser } from "../../features/auth/authSlice";
 
 const Login = () => {
@@ -21,7 +21,7 @@ const Login = () => {
       if (data?.user?.role === "ADMIN") {
         from = "/allUsers";
       }
-      if (data?.user?.role === "USER") {
+      if (data?.user?.role === "USER" || data?.user?.role === "AGENT") {
         from = "/home";
       }
       // console.log(data);

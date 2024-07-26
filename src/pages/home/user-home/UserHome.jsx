@@ -8,7 +8,7 @@ import { MdEnergySavingsLeaf } from "react-icons/md";
 const UserHome = () => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <Link>
+      <Link to={"/balance"}>
         <Card className="py-10">
           <div className="flex flex-col justify-center items-center gap-4">
             <FaSackDollar className="h-16 w-16 text-green-500" />

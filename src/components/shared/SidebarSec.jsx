@@ -10,9 +10,16 @@ import { TiHome } from "react-icons/ti";
 import { toggleSidebar } from "../../features/toggle/toggleSlice";
 import { GiTakeMyMoney, GiWallet, GiPayMoney } from "react-icons/gi";
 import { FaSackDollar } from "react-icons/fa6";
+import {
+  selectIsUserExist,
+  selectUser,
+} from "../../features/auth/authSelectors";
 
 const SidebarSec = () => {
-  const { user, isUserExist } = useSelector((state) => state.auth);
+  // const { user, isUserExist } = useSelector((state) => state.auth);
+  const user = useSelector(selectUser);
+  const isUserExist = useSelector(selectIsUserExist);
+
   const { isOpen } = useSelector((state) => state.toggle);
 
   const dispatch = useDispatch();
@@ -74,6 +81,13 @@ const SidebarSec = () => {
                     </Sidebar.Item>
                     <Sidebar.Item as={NavLink} icon={GiWallet}>
                       Add Money
+                    </Sidebar.Item>
+                  </>
+                )}
+                {user.role === "AGENT" && (
+                  <>
+                    <Sidebar.Item as={NavLink} to="/home" icon={TiHome}>
+                      Home
                     </Sidebar.Item>
                   </>
                 )}
