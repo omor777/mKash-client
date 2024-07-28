@@ -70,7 +70,11 @@ const SidebarSec = () => {
                     <Sidebar.Item as={NavLink} to="/home" icon={TiHome}>
                       Home
                     </Sidebar.Item>
-                    <Sidebar.Item to='/balance' as={NavLink} icon={FaSackDollar}>
+                    <Sidebar.Item
+                      to="/balance"
+                      as={NavLink}
+                      icon={FaSackDollar}
+                    >
                       Total Balance
                     </Sidebar.Item>
                     <Sidebar.Item
@@ -80,11 +84,15 @@ const SidebarSec = () => {
                     >
                       Send Money
                     </Sidebar.Item>
-                    <Sidebar.Item as={NavLink} icon={GiTakeMyMoney}>
+                    <Sidebar.Item
+                      to="/cashOut"
+                      as={NavLink}
+                      icon={GiTakeMyMoney}
+                    >
                       Cash Out
                     </Sidebar.Item>
                     <Sidebar.Item as={NavLink} icon={GiWallet}>
-                      Add Money
+                      Cash In
                     </Sidebar.Item>
                   </>
                 )}

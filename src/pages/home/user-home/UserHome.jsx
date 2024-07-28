@@ -24,7 +24,7 @@ const UserHome = () => {
           </div>
         </Card>
       </Link>
-      <Link>
+      <Link to={"/cashOut"}>
         <Card className="py-10">
           <div className="flex flex-col justify-center items-center gap-4">
             <GiTakeMyMoney className="h-16 w-16 text-orange-500" />
