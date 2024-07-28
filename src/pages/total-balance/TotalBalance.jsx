@@ -1,8 +1,14 @@
-import { useSelector } from "react-redux";
-import { selectUser } from "../../features/auth/authSelectors";
-import { Card } from "flowbite-react";
+import { Card, Spinner } from "flowbite-react";
+import { useGetSingleUserQuery } from "../../services/usersApi";
+
 const TotalBalance = () => {
-  const user = useSelector(selectUser);
+  const { isLoading, data: user } = useGetSingleUserQuery(null, {
+    refetchOnMountOrArgChange: true,
+  });
+
+  if (isLoading) {
+    return <Spinner aria-label="Extra large spinner example" size="xl" />;
+  }
 
   return (
     <div className="w-full h-[calc(100vh-56px)] flex items-center justify-center">
@@ -22,3 +28,69 @@ const TotalBalance = () => {
 };
 
 export default TotalBalance;
+
+/**
+ *  const [state, dispatch] = useReducer(userReducer, initialState);
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  const fetchUserData = async () => {
+    dispatch({ type: "loading", value: true });
+    try {
+      const { data } = await axios.get(
+        "http://localhost:4000/api/v1/users/66963671cb96d16d16c3f4bd"
+      );
+
+      if (data) {
+        dispatch({ type: "success", data });
+        dispatch({ type: "loading", value: false });
+        dispatch({ type: "error", value: "", isError: false });
+      }
+    } catch (e) {
+      console.log(e);
+
+      dispatch({ type: "loading", value: false });
+
+      if (e.response.status === 404) {
+        dispatch({ type: "error", value: "User not found!", isError: true });
+      }
+    }
+  };
+  console.log(state);
+
+
+
+  
+const initialState = {
+  isLoading: false,
+  isError: false,
+  error: "",
+  data: null,
+};
+
+const userReducer = (state, action) => {
+  switch (action.type) {
+    case "loading": {
+      return {
+        ...state,
+        isLoading: action.value,
+      };
+    }
+    case "error": {
+      return {
+        ...state,
+        error: action.value,
+        isError: action.isError,
+      };
+    }
+    case "success": {
+      return {
+        ...state,
+        data: action.data,
+      };
+    }
+  }
+};
+ */

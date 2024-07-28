@@ -20,6 +20,20 @@ const usersApi = api.injectEndpoints({
             ]
           : [{ type: "Users", id: "LIST" }],
     }),
+    getSingleUser: builder.query({
+      query: () => {
+        const token = localStorage.getItem("token");
+        return {
+          url: `/users/single`,
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        };
+      },
+      refetchOnMountOrArgChange: true,
+    }),
     patchUser: builder.mutation({
       query: ({ id }) => {
         const token = localStorage.getItem("token");
@@ -43,4 +57,8 @@ const usersApi = api.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useGetAllUsersQuery, usePatchUserMutation } = usersApi;
+export const {
+  useGetAllUsersQuery,
+  usePatchUserMutation,
+  useGetSingleUserQuery,
+} = usersApi;

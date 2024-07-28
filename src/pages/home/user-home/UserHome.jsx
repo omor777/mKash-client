@@ -16,7 +16,7 @@ const UserHome = () => {
           </div>
         </Card>
       </Link>
-      <Link>
+      <Link to={"/sendMoney"}>
         <Card className="py-10">
           <div className="flex flex-col justify-center items-center gap-4">
             <GiPayMoney className="h-16 w-16 text-pink-500" />
