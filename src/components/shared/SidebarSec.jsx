@@ -8,6 +8,7 @@ import { MdOutlineLogout } from "react-icons/md";
 import { FaBars, FaUsers } from "react-icons/fa";
 import { TiHome } from "react-icons/ti";
 import { toggleSidebar } from "../../features/toggle/toggleSlice";
+import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { GiTakeMyMoney, GiWallet, GiPayMoney } from "react-icons/gi";
 import { FaSackDollar } from "react-icons/fa6";
 import {
@@ -107,6 +108,13 @@ const SidebarSec = () => {
                       icon={FaSackDollar}
                     >
                       Total Balance
+                    </Sidebar.Item>
+                    <Sidebar.Item
+                      to="/transactionManagement"
+                      as={NavLink}
+                      icon={FaMoneyCheckDollar}
+                    >
+                      Transaction Request
                     </Sidebar.Item>
                   </>
                 )}

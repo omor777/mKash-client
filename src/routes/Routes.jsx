@@ -7,6 +7,7 @@ import ShowUsers from "../pages/show-users/ShowUsers";
 import TotalBalance from "../pages/total-balance/TotalBalance";
 import SendMoney from "../pages/send-money/SendMoney";
 import CashOut from "../pages/cashout/CashOut";
+import TransactionManagement from "../pages/transaction-management/TransactionManagement";
 
 export const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
       {
         path: "/cashOut",
         element: <CashOut />,
+      },
+      {
+        path: "transactionManagement",
+        element: <TransactionManagement />,
       },
     ],
   },
