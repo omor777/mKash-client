@@ -1,13 +1,30 @@
 import { useState } from "react";
-import { useGetTransactionQuery } from "../../services/agentTransaction";
+import {
+  useApproveTransactionMutation,
+  useGetTransactionQuery,
+} from "../../services/transaction";
 import { Badge, Button, Pagination, Spinner, Table } from "flowbite-react";
+import { toast } from "react-toastify";
 
 const TransactionManagement = () => {
   const [page, setPage] = useState(1);
   const { data: transactions, isLoading } = useGetTransactionQuery({ page });
+  const [approveTransaction] = useApproveTransactionMutation();
 
   const handlePagination = (p) => {
     setPage(p);
+  };
+
+  const handleTransactionRequest = async (id) => {
+    console.log(id);
+    try {
+      const { data } = await approveTransaction({ id });
+      if (data.success) {
+        toast.success(data.message);
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   if (isLoading) {
@@ -23,8 +40,8 @@ const TransactionManagement = () => {
         <Table hoverable>
           <Table.Head>
             <Table.HeadCell>Name</Table.HeadCell>
-            <Table.HeadCell>Email</Table.HeadCell>
             <Table.HeadCell>Mobile</Table.HeadCell>
+            <Table.HeadCell>Amount</Table.HeadCell>
             <Table.HeadCell>Date</Table.HeadCell>
             <Table.HeadCell>Status</Table.HeadCell>
             <Table.HeadCell>Action</Table.HeadCell>
@@ -36,14 +53,16 @@ const TransactionManagement = () => {
                 className="bg-white dark:border-gray-700 dark:bg-gray-800"
               >
                 <Table.Cell>{item.from.name}</Table.Cell>
-                <Table.Cell>{item.from.email}</Table.Cell>
                 <Table.Cell>{item.from.mobile_number}</Table.Cell>
+                <Table.Cell>
+                  <span className="font-bold">{item.amount}</span>
+                </Table.Cell>
                 <Table.Cell>
                   {new Date(item.createdAt).toLocaleDateString()}
                 </Table.Cell>
                 <Table.Cell>
                   <Badge
-                    className="w-20 justify-center"
+                    className="w-24 justify-center"
                     color={
                       item.status === "PENDING"
                         ? "warning"
@@ -56,7 +75,15 @@ const TransactionManagement = () => {
                   </Badge>
                 </Table.Cell>
                 <Table.Cell>
-                  <Button size="xs">Approved</Button>
+                  <Button
+                    onClick={() => handleTransactionRequest(item._id)}
+                    disabled={
+                      item.status === "COMPLETED" || item.status === "FAILED"
+                    }
+                    size="xs"
+                  >
+                    Approved
+                  </Button>
                 </Table.Cell>
               </Table.Row>
             ))}

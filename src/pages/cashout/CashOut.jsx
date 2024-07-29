@@ -7,26 +7,28 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { TbPasswordUser, TbCoinTaka } from "react-icons/tb";
 import { IoMdPhonePortrait } from "react-icons/io";
+import { useCashOutMutation } from "../../services/transaction";
 
 const CashOut = () => {
-  const dispatch = useDispatch();
+  const [cashOutFunc, { isLoading }] = useCashOutMutation();
 
   const { handleSubmit, register, reset } = useForm();
   const navigate = useNavigate();
 
   const onSubmit = async (formData) => {
     try {
-      const result = await dispatch(
-        cashOut({ ...formData, transaction_type: "cashOut" })
-      ).unwrap();
-      if (result.success) {
-        toast.success(result.message);
-        reset();
-        navigate("/home");
+      const data = await cashOutFunc({
+        ...formData,
+        transaction_type: "cashOut",
+      }).unwrap();
+      if (data.success) {
+        toast.success(data.message);
+        // reset();
+        // navigate("/home");
       }
     } catch (e) {
-      toast.error(e.message);
       console.log(e);
+      toast.error(e.data.message);
     }
   };
 
@@ -77,7 +79,7 @@ const CashOut = () => {
             />
           </div>
 
-          <Button type="submit" fullSized className="">
+          <Button disabled={isLoading} type="submit" fullSized className="">
             Cashout
           </Button>
         </form>

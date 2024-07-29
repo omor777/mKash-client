@@ -6,7 +6,6 @@ export const cashOut = createAsyncThunk(
   "transaction/cashOut",
   async (formData, { rejectWithValue }) => {
     const token = localStorage.getItem("token");
-
     try {
       const { data } = await axios.post(
         `${baseUrl}/transaction/cashOut`,
