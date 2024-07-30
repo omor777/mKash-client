@@ -8,7 +8,9 @@ import { toast } from "react-toastify";
 
 const TransactionManagement = () => {
   const [page, setPage] = useState(1);
-  const { data: transactions, isLoading } = useGetTransactionQuery({ page });
+  const { data: transactions, isLoading } = useGetTransactionQuery(
+    { page }
+  );
   const [approveTransaction] = useApproveTransactionMutation();
 
   const handlePagination = (p) => {
@@ -18,12 +20,13 @@ const TransactionManagement = () => {
   const handleTransactionRequest = async (id) => {
     console.log(id);
     try {
-      const { data } = await approveTransaction({ id });
+      const data = await approveTransaction({ id }).unwrap();
       if (data.success) {
         toast.success(data.message);
       }
     } catch (e) {
-      console.log(e);
+      toast.error(e.data.message);
+      console.error(e);
     }
   };
 
@@ -42,7 +45,7 @@ const TransactionManagement = () => {
             <Table.HeadCell>Name</Table.HeadCell>
             <Table.HeadCell>Mobile</Table.HeadCell>
             <Table.HeadCell>Amount</Table.HeadCell>
-            <Table.HeadCell>Date</Table.HeadCell>
+            <Table.HeadCell>Type</Table.HeadCell>
             <Table.HeadCell>Status</Table.HeadCell>
             <Table.HeadCell>Action</Table.HeadCell>
           </Table.Head>
@@ -58,7 +61,14 @@ const TransactionManagement = () => {
                   <span className="font-bold">{item.amount}</span>
                 </Table.Cell>
                 <Table.Cell>
-                  {new Date(item.createdAt).toLocaleDateString()}
+                  <Badge
+                    color={
+                      item.transaction_type === "cashIn" ? "info" : "purple"
+                    }
+                    className="w-16 justify-center"
+                  >
+                    <span className="capitalize">{item.transaction_type}</span>
+                  </Badge>
                 </Table.Cell>
                 <Table.Cell>
                   <Badge

@@ -5,19 +5,23 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { TbPasswordUser, TbCoinTaka } from "react-icons/tb";
 import { IoMdPhonePortrait } from "react-icons/io";
-import { useCashOutMutation } from "../../services/transaction";
+import {
+  useCashInMutation,
+  useGetTransactionQuery,
+} from "../../services/transaction";
 
-const CashOut = () => {
-  const [cashOutFunc, { isLoading }] = useCashOutMutation();
-
+const CashIn = () => {
+  const [cashInFunc, { isLoading }] = useCashInMutation();
+//   const data = useGetTransactionQuery({ page: 1 });
+//   console.log(data);
   const { handleSubmit, register, reset } = useForm();
   const navigate = useNavigate();
 
   const onSubmit = async (formData) => {
     try {
-      const data = await cashOutFunc({
+      const data = await cashInFunc({
         ...formData,
-        transaction_type: "cashOut",
+        transaction_type: "cashIn",
       }).unwrap();
       if (data.success) {
         toast.success(data.message);
@@ -25,7 +29,7 @@ const CashOut = () => {
         navigate("/home");
       }
     } catch (e) {
-      console.log(e);
+      console.error(e);
       toast.error(e.data.message);
     }
   };
@@ -86,4 +90,4 @@ const CashOut = () => {
   );
 };
 
-export default CashOut;
+export default CashIn;

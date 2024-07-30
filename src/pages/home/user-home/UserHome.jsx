@@ -32,11 +32,11 @@ const UserHome = () => {
           </div>
         </Card>
       </Link>
-      <Link>
+      <Link to={"/cashIn"}>
         <Card className="py-10">
           <div className="flex flex-col justify-center items-center gap-4">
             <GiWallet className="h-16 w-16 text-purple-500" />
-            <p className="text-3xl lg:text-4xl font-extrabold">Add Money</p>
+            <p className="text-3xl lg:text-4xl font-extrabold">Cash In</p>
           </div>
         </Card>
       </Link>

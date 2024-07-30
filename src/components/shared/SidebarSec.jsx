@@ -92,7 +92,7 @@ const SidebarSec = () => {
                     >
                       Cash Out
                     </Sidebar.Item>
-                    <Sidebar.Item as={NavLink} icon={GiWallet}>
+                    <Sidebar.Item to="/cashIn" as={NavLink} icon={GiWallet}>
                       Cash In
                     </Sidebar.Item>
                   </>

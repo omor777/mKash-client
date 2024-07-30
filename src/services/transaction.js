@@ -58,6 +58,21 @@ const transactionApi = api.injectEndpoints({
       },
       invalidatesTags: ["Transaction"],
     }),
+    cashIn: builder.mutation({
+      query: (body) => {
+        const token = getToken();
+        return {
+          url: "/transaction/cashIn",
+          method: "POST",
+          body,
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        };
+      },
+      invalidatesTags: ["Transaction"],
+    }),
   }),
 });
 
@@ -65,4 +80,5 @@ export const {
   useGetTransactionQuery,
   useApproveTransactionMutation,
   useCashOutMutation,
+  useCashInMutation,
 } = transactionApi;
