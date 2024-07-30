@@ -5,16 +5,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../features/auth/authSlice";
 import { persistor } from "../../app/store";
 import { MdOutlineLogout } from "react-icons/md";
-import { FaBars, FaUsers } from "react-icons/fa";
+import { FaBars, FaDollarSign, FaFileInvoice, FaUsers } from "react-icons/fa";
 import { TiHome } from "react-icons/ti";
 import { toggleSidebar } from "../../features/toggle/toggleSlice";
-import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { GiTakeMyMoney, GiWallet, GiPayMoney } from "react-icons/gi";
 import { FaSackDollar } from "react-icons/fa6";
 import {
   selectIsUserExist,
   selectUser,
 } from "../../features/auth/authSelectors";
+import { BiDollarCircle } from "react-icons/bi";
 
 const SidebarSec = () => {
   // const { user, isUserExist } = useSelector((state) => state.auth);
@@ -99,22 +99,26 @@ const SidebarSec = () => {
                 )}
                 {user.role === "AGENT" && (
                   <>
-                    <Sidebar.Item as={NavLink} to="/home" icon={TiHome}>
-                      Home
-                    </Sidebar.Item>
                     <Sidebar.Item
                       to="/balance"
                       as={NavLink}
-                      icon={FaSackDollar}
+                      icon={FaDollarSign}
                     >
                       Total Balance
                     </Sidebar.Item>
                     <Sidebar.Item
                       to="/transactionManagement"
                       as={NavLink}
-                      icon={FaMoneyCheckDollar}
+                      icon={BiDollarCircle}
                     >
                       Transaction Request
+                    </Sidebar.Item>
+                    <Sidebar.Item
+                      to="/transaction-history"
+                      as={NavLink}
+                      icon={FaFileInvoice}
+                    >
+                      Transaction History
                     </Sidebar.Item>
                   </>
                 )}

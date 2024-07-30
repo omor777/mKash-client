@@ -5,15 +5,12 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { TbPasswordUser, TbCoinTaka } from "react-icons/tb";
 import { IoMdPhonePortrait } from "react-icons/io";
-import {
-  useCashInMutation,
-  useGetTransactionQuery,
-} from "../../services/transaction";
+import { useCashInMutation } from "../../services/transaction";
 
 const CashIn = () => {
   const [cashInFunc, { isLoading }] = useCashInMutation();
-//   const data = useGetTransactionQuery({ page: 1 });
-//   console.log(data);
+  //   const data = useGetTransactionQuery({ page: 1 });
+  //   console.log(data);
   const { handleSubmit, register, reset } = useForm();
   const navigate = useNavigate();
 

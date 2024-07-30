@@ -9,6 +9,7 @@ import SendMoney from "../pages/send-money/SendMoney";
 import CashOut from "../pages/cashout/CashOut";
 import TransactionManagement from "../pages/transaction-management/TransactionManagement";
 import CashIn from "../pages/cashin/CashIn";
+import TransactionHistory from "../pages/transaction-history/TrasactionHistory";
 
 export const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ export const router = createBrowserRouter([
       {
         path: "/cashIn",
         element: <CashIn />,
+      },
+      {
+        path: "/transaction-history",
+        element: <TransactionHistory />,
       },
     ],
   },

@@ -18,12 +18,19 @@ const Login = () => {
       const { data } = await axiosCommon.post("/auth/login", userInfo);
 
       let from;
+
+      if (data?.user?.role === "USER") {
+        from = "/home";
+      }
+
+      if (data?.user?.role === "AGENT") {
+        from = "/transactionManagement";
+      }
+
       if (data?.user?.role === "ADMIN") {
         from = "/allUsers";
       }
-      if (data?.user?.role === "USER" || data?.user?.role === "AGENT") {
-        from = "/home";
-      }
+
       // console.log(data);
 
       if (data.success) {
