@@ -26,7 +26,7 @@ const Register = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen ">
+    <div className="mt-20">
       <Card className="w-full max-w-5xl mx-auto ">
         <form
           onSubmit={handleSubmit(onSubmit)}

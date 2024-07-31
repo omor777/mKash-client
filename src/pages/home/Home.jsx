@@ -6,14 +6,12 @@ const Home = () => {
   const user = useSelector(selectUser);
 
   return (
-    <div className="h-[calc(100vh-56px)] flex items-center justify-center">
-      {
-        (user?.role === "USER" && (
-          <div className="w-full">
-            <UserHome />
-          </div>
-        ))
-      }
+    <div className="mt-20">
+      {user?.role === "USER" && (
+        <div className="w-full">
+          <UserHome />
+        </div>
+      )}
     </div>
   );
 };

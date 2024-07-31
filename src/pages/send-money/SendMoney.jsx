@@ -8,7 +8,10 @@ const SendMoney = () => {
   const status = useSelector(selectStatus);
 
   return (
-    <div className="h-[calc(100vh-56px)] flex items-center justify-center">
+    <div className="mt-20">
+      <h1 className="text-[clamp(28px,5vw,64px)] font-bold text-center mb-5">
+        <span className="text-teal-500">Send</span> Money
+      </h1>
       {status === "number" && <MobileInput />}
       {status === "amount" && <Amount />}
       {status === "pin" && <PinComponent />}

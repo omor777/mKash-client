@@ -5,7 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../features/auth/authSlice";
 import { persistor } from "../../app/store";
 import { MdOutlineLogout } from "react-icons/md";
-import { FaBars, FaDollarSign, FaFileInvoice, FaUsers } from "react-icons/fa";
+import {
+  FaMoneyCheck,
+  FaDollarSign,
+  FaFileInvoice,
+  FaUsers,
+} from "react-icons/fa";
 import { TiHome } from "react-icons/ti";
 import { toggleSidebar } from "../../features/toggle/toggleSlice";
 import { GiTakeMyMoney, GiWallet, GiPayMoney } from "react-icons/gi";
@@ -39,18 +44,8 @@ const SidebarSec = () => {
 
   return (
     <div>
-      <nav className="bg-white shadow-md h-14 flex items-center px-8 justify-between">
-        <h1 className="text-2xl font-bold">mKash</h1>
-        <Button onClick={handleToggle} className="md:hidden">
-          <FaBars className="w-5 h-5" />
-        </Button>
-      </nav>
-      <Sidebar
-        className={`fixed left-0 z-50  ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        } md:translate-x-0 transition-transform duration-300 ease-in-out  text-white w-64`}
-      >
-        <Sidebar.Items className="">
+      <Sidebar className="fixed lg:block hidden inset-0">
+        <Sidebar.Items>
           <Sidebar.ItemGroup>
             {isUserExist ? (
               <>
@@ -63,6 +58,14 @@ const SidebarSec = () => {
                       to="/allUsers"
                     >
                       All Users
+                    </Sidebar.Item>
+                    <Sidebar.Item
+                      onClick={handleToggle}
+                      as={NavLink}
+                      icon={FaMoneyCheck}
+                      to="/transaction-history-admin"
+                    >
+                      Transaction History
                     </Sidebar.Item>
                   </>
                 )}
@@ -149,3 +152,9 @@ const SidebarSec = () => {
 };
 
 export default SidebarSec;
+
+/**
+ * fixed left-0 z-50  ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        } md:translate-x-0 transition-transform duration-300 ease-in-out  text-white w-64
+ */

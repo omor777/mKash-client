@@ -7,14 +7,17 @@ const TotalBalance = () => {
   });
 
   if (isLoading) {
-    return <Spinner aria-label="Extra large spinner example" size="xl" />;
+    return (
+      <div className="h-[80vh] flex items-center justify-center">
+        <Spinner aria-label="Extra large spinner example" size="xl" />
+      </div>
+    );
   }
 
   return (
-    <div className="w-full h-[calc(100vh-56px)] flex items-center justify-center">
+    <div className="mt-20">
       <Card className="max-w-3xl mx-auto py-14 w-full" color="">
         <div className="flex flex-col justify-center items-center gap-4">
-          {/* <FaBangladeshiTakaSign className="h-16 w-16  " /> */}
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold">
             Total Balance
           </h1>

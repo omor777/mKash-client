@@ -99,6 +99,42 @@ const transactionApi = api.injectEndpoints({
         };
       },
     }),
+
+    transactionHistoryAdmin: builder.query({
+      query: ({ page = 1, limit = 10 }) => {
+        const token = getToken();
+        return {
+          url: "/transaction/history",
+          method: "GET",
+          params: { page, limit },
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        };
+      },
+      transformResponse: (
+        { success, data, hasMore, currentPage, totalPages },
+        _meta,
+        arg
+      ) => {
+        return {
+          success,
+          currentPage,
+          totalPages,
+          hasMore,
+          data: data.map((item) => ({
+            id: item._id,
+            name: item.from.name,
+            email: item.from.email,
+            mobile_number: item.from.mobile_number,
+            amount: item.amount,
+            transaction_type: item.transaction_type,
+            date: item.createdAt,
+          })),
+        };
+      },
+    }),
   }),
 });
 
@@ -108,4 +144,5 @@ export const {
   useCashOutMutation,
   useCashInMutation,
   useTransactionHistoryAgentQuery,
+  useTransactionHistoryAdminQuery,
 } = transactionApi;

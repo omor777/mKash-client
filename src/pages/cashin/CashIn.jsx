@@ -33,6 +33,9 @@ const CashIn = () => {
 
   return (
     <div className="mt-20">
+      <h1 className="text-[clamp(28px,5vw,64px)] font-bold text-center mb-5">
+        <span className="text-teal-500">Cash</span> In
+      </h1>
       <Card className="max-w-4xl mx-auto">
         <form
           onSubmit={handleSubmit(onSubmit)}
