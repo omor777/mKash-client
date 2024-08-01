@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-const baseUrl = "http://localhost:4000/api/v1";
+const baseUrl = "https://mkash-server.vercel.app/api/v1";
 
 export const cashOut = createAsyncThunk(
   "transaction/cashOut",
