@@ -3,23 +3,16 @@ import { selectUser } from "../features/auth/authSelectors";
 import { Navigate } from "react-router-dom";
 import { logoutUser } from "../features/auth/authSlice";
 import { persistor } from "../app/store";
-import PropTypes from "prop-types";
 
-const AdminRoute = ({ children }) => {
+const AgentRoute = ({ children }) => {
   const user = useSelector(selectUser);
-
   const dispatch = useDispatch();
-
-  if (user.role === "ADMIN") {
+  if (user.role === "AGENT") {
     return children;
   }
   dispatch(logoutUser());
-  persistor.pause();
+  persistor.purge();
   return <Navigate to={"/"} replace />;
 };
 
-AdminRoute.propTypes = {
-  children: PropTypes.node,
-};
-
-export default AdminRoute;
+export default AgentRoute;
