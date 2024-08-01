@@ -14,6 +14,7 @@ import TransactionHistoryAdmin from "../pages/transaction-history-admin/Transact
 import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
 import AgentRoute from "./AgentRoute";
+import UserRoute from "./UserRoute";
 
 export const router = createBrowserRouter([
   {
@@ -31,7 +32,13 @@ export const router = createBrowserRouter([
       },
       {
         path: "/home",
-        element: <Home />,
+        element: (
+          <PrivateRoute>
+            <UserRoute>
+              <Home />
+            </UserRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/allUsers",
@@ -45,15 +52,31 @@ export const router = createBrowserRouter([
       },
       {
         path: "/balance",
-        element: <TotalBalance />,
+        element: (
+          <PrivateRoute>
+            <TotalBalance />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/sendMoney",
-        element: <SendMoney />,
+        element: (
+          <PrivateRoute>
+            <UserRoute>
+              <SendMoney />
+            </UserRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/cashOut",
-        element: <CashOut />,
+        element: (
+          <PrivateRoute>
+            <UserRoute>
+              <CashOut />
+            </UserRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "transactionManagement",
@@ -67,7 +90,13 @@ export const router = createBrowserRouter([
       },
       {
         path: "/cashIn",
-        element: <CashIn />,
+        element: (
+          <PrivateRoute>
+            <UserRoute>
+              <CashIn />
+            </UserRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/transaction-history",
