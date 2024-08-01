@@ -7,7 +7,6 @@ const TransactionHistoryAdmin = () => {
   const { data, isLoading } = useTransactionHistoryAdminQuery({ page });
 
   const handlePagination = (p) => {
-    console.log(p);
     setPage(p);
   };
 

@@ -1,17 +1,24 @@
+import { getToken } from "../utils/localstorage.js";
 import { api } from "./api";
 
 const usersApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getAllUsers: builder.query({
       query: ({ page = 1, limit = 10, search = "" }) => {
+        const token = getToken();
         return {
           url: "/users",
+          method: "GET",
           params: { page, limit, search },
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
         };
       },
       providesTags: (result) =>
         result
-          ? [
+        ? [
               ...result.users.map(({ _id }) => ({
                 type: "Users",
                 id: _id,

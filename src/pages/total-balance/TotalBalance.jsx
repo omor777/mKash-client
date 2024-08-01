@@ -43,7 +43,7 @@ export default TotalBalance;
     dispatch({ type: "loading", value: true });
     try {
       const { data } = await axios.get(
-        "http://localhost:4000/api/v1/users/66963671cb96d16d16c3f4bd"
+        "https://mkash-server.vercel.app/api/v1/users/66963671cb96d16d16c3f4bd"
       );
 
       if (data) {

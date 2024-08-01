@@ -10,7 +10,6 @@ const TransactionHistory = () => {
       </div>
     );
   }
-  console.log(data);
 
   return (
     <div className="my-20">
@@ -40,7 +39,12 @@ const TransactionHistory = () => {
                   <span className="font-bold">{item.amount}</span>
                 </Table.Cell>
                 <Table.Cell>
-                  <Badge className="w-20 justify-center text-black" color={item.transaction_type === 'cashIn' ? 'pink' : 'success'}>
+                  <Badge
+                    className="w-20 justify-center text-black"
+                    color={
+                      item.transaction_type === "cashIn" ? "pink" : "success"
+                    }
+                  >
                     <span className="uppercase">{item.transaction_type}</span>
                   </Badge>
                 </Table.Cell>
