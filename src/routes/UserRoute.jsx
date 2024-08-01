@@ -5,10 +5,10 @@ import { logoutUser } from "../features/auth/authSlice";
 import { persistor } from "../app/store";
 import PropTypes from "prop-types";
 
-const AgentRoute = ({ children }) => {
+const UserRoute = ({ children }) => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
-  if (user.role === "AGENT") {
+  if (user.role === "USER") {
     return children;
   }
   dispatch(logoutUser());
@@ -16,8 +16,7 @@ const AgentRoute = ({ children }) => {
   return <Navigate to={"/"} replace />;
 };
 
-AgentRoute.propTypes = {
+UserRoute.propTypes = {
   children: PropTypes.node,
 };
-
-export default AgentRoute;
+export default UserRoute;
